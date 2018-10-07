@@ -15,7 +15,7 @@ pipeline {
             when { expression { params.DEPLOY_JOB_NAME != null } }
             steps {                
                 script {
-                    def JOB_TAG_SECTIONS = params.DEPLOY_JOB_NAME.split('/')
+                    def JOB_TAG_SECTIONS = new String[params.DEPLOY_JOB_NAME, "master"]
                     def NAME = JOB_TAG_SECTIONS[0]
                     def BRANCH = JOB_TAG_SECTIONS[1]
                     def REGISTRY_URL = "docker-registry.example.lara/${NAME}:${BRANCH}"
