@@ -75,7 +75,7 @@ Working directory: ${params.SOURCE_DIRECTORY}
                             def LATEST_WORKSPACE_REGISTRY_URL = "docker-registry.example.lara/laradock_workspace:latest"
                             def LATEST_WORKSPACE_DOCKER_ARGS = "-t ${LATEST_WORKSPACE_REGISTRY_URL}"
                             echo "--> Building image Workspace tagged ${LATEST_WORKSPACE_REGISTRY_URL}"
-                            sh "docker image build ${LATEST_WORKSPACE_DOCKER_ARGS} ${params.SOURCE_DIRECTORY}/laradock/workspace" 
+                            sh "docker image build --build-arg LARADOCK_PHP_VERSION=7.2 ${LATEST_WORKSPACE_DOCKER_ARGS} ${params.SOURCE_DIRECTORY}/laradock/workspace" 
                             echo "--> Pushing tag to registry ${LATEST_WORKSPACE_REGISTRY_URL}"
                             sh "docker push ${LATEST_WORKSPACE_REGISTRY_URL}" 
 
