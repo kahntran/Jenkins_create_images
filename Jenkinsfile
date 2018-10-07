@@ -18,7 +18,7 @@ pipeline {
                     def JOB_TAG_SECTIONS = params.DEPLOY_JOB_NAME.split('/')
                     def NAME = JOB_TAG_SECTIONS[0]
                     def BRANCH = JOB_TAG_SECTIONS[1]
-                    def REGISTRY_URL = docker-registry.example.lara/${NAME}:${BRANCH}"</span>
+                    def REGISTRY_URL = "docker-registry.example.lara/${NAME}:${BRANCH}"
                     def DOCKER_ARGS = "-t ${REGISTRY_URL}"
 
                     if (params.ADDITIONAL_ARGUMENTS != null) {
