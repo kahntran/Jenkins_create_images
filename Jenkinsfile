@@ -70,7 +70,37 @@ Working directory: ${params.SOURCE_DIRECTORY}
                             }
 
                         } else {
-                            error("No supported method of making a Docker image was found in this build")
+                            echo "--> Running my-lara docker build: Workspace, Php-fpm, Nginx, MySQL"
+
+                            def LATEST_WORKSPACE_REGISTRY_URL = "docker-registry.example.lara/laradock_workspace:latest"
+                            def LATEST_WORKSPACE_DOCKER_ARGS = "-t ${LATEST_WORKSPACE_REGISTRY_URL}"
+                            echo "--> Building image Workspace tagged ${LATEST_WORKSPACE_REGISTRY_URL}"
+                            sh "docker image build ${LATEST_WORKSPACE_DOCKER_ARGS} ${params.SOURCE_DIRECTORY}/laradock/workspace/Dockerfile" 
+                            echo "--> Pushing tag to registry ${LATEST_WORKSPACE_REGISTRY_URL}"
+                            sh "docker push ${LATEST_WORKSPACE_REGISTRY_URL}" 
+
+                            def LATEST_PHPFPM_REGISTRY_URL = "docker-registry.example.lara/laradock_php-fpm:latest"
+                            def LATEST_PHPFPM_DOCKER_ARGS = "-t ${LATEST_PHPFPM_REGISTRY_URL}"
+                            echo "--> Building image PHP-FPM tagged ${LATEST_PHPFPM_REGISTRY_URL}"
+                            sh "docker image build ${LATEST_PHPFPM_DOCKER_ARGS} ${params.SOURCE_DIRECTORY}/laradock/php-fpm/Dockerfile" 
+                            echo "--> Pushing tag to registry ${LATEST_PHPFPM_REGISTRY_URL}"
+                            sh "docker push ${LATEST_PHPFPM_REGISTRY_URL}" 
+
+                            def LATEST_NGINX_REGISTRY_URL = "docker-registry.example.lara/laradock_nginx:latest"
+                            def LATEST_NGINX_DOCKER_ARGS = "-t ${LATEST_NGINX_REGISTRY_URL}"
+                            echo "--> Building image Nginx tagged ${LATEST_NGINX_REGISTRY_URL}"
+                            sh "docker image build ${LATEST_NGINX_DOCKER_ARGS} ${params.SOURCE_DIRECTORY}/laradock/nginx/Dockerfile" 
+                            echo "--> Pushing tag to registry ${LATEST_NGINX_REGISTRY_URL}"
+                            sh "docker push ${LATEST_NGINX_REGISTRY_URL}" 
+
+                            def LATEST_MYSQL_REGISTRY_URL = "docker-registry.example.lara/laradock_mysql:latest"
+                            def LATEST_MYSQL_DOCKER_ARGS = "-t ${LATEST_MYSQL_REGISTRY_URL}"
+                            echo "--> Building image MySQL tagged ${REGISTRY_URL}"
+                            sh "docker image build ${LATEST_MYSQL_DOCKER_ARGS} ${params.SOURCE_DIRECTORY}/laradock/mysql/Dockerfile" 
+                            echo "--> Pushing tag to registry ${LATEST_MYSQL_REGISTRY_URL}"
+                            sh "docker push ${LATEST_MYSQL_REGISTRY_URL}" 
+
+                            echo "--> Finish building"
                         }
                     } else {              
                         echo "--> ${BRANCH} is an unsupported branch name for automation."
