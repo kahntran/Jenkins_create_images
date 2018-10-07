@@ -82,7 +82,7 @@ Working directory: ${params.SOURCE_DIRECTORY}
                             def LATEST_PHPFPM_REGISTRY_URL = "docker-registry.example.lara/laradock_php-fpm:latest"
                             def LATEST_PHPFPM_DOCKER_ARGS = "-t ${LATEST_PHPFPM_REGISTRY_URL}"
                             echo "--> Building image PHP-FPM tagged ${LATEST_PHPFPM_REGISTRY_URL}"
-                            sh "docker image build ${LATEST_PHPFPM_DOCKER_ARGS} ${params.SOURCE_DIRECTORY}/laradock/php-fpm" 
+                            sh "docker image build --build-arg LARADOCK_PHP_VERSION=7.2 ${LATEST_PHPFPM_DOCKER_ARGS} ${params.SOURCE_DIRECTORY}/laradock/php-fpm" 
                             echo "--> Pushing tag to registry ${LATEST_PHPFPM_REGISTRY_URL}"
                             sh "docker push ${LATEST_PHPFPM_REGISTRY_URL}" 
 
